@@ -1,7 +1,8 @@
+@echo off
+
 mode con:cols=52 lines=10
 title Kiosk Manager
 
-@echo off
 echo ====================================================
 echo            Deactivating Tauri Kiosk Mode
 echo ====================================================
