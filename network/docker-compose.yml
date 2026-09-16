@@ -43,7 +43,6 @@ services:
     volumes:
       - Guacd-driver:/drive
       - Guacd-record:/record
-    environment:
     network_mode: "service:zerotier"
 
   mediamtx:
