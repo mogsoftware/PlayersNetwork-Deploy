@@ -14,14 +14,17 @@ srtAddress: :8890
 webrtc: yes
 webrtcAddress: :8889
 
-# ICE/UDP
 webrtcLocalUDPAddress: :8189
+
+# ICE
+webrtcIPsFromInterfaces: no
+webrtcAdditionalHosts:
+  - 172.20.20.47
 
 # --------------------------------------------------
 # Authentication
 # --------------------------------------------------
 
-# No authentication
 authMethod: internal
 
 authInternalUsers:
