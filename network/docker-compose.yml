@@ -19,9 +19,9 @@ services:
       - Zerotier-data:/var/lib/zerotier-one
     command: ["${ZT_NETWORK_ID}"] 
     ports:
-      - "${ZT_IP:-127.0.0.1}:4822:4822" # Opens guacd's port to the zerotier network
-      - "${ZT_IP:-127.0.0.1}:8889:8889/tcp"
-      - "${ZT_IP:-127.0.0.1}:8189:8189/udp"
+      - "4822:4822" # Opens guacd's port to the zerotier network
+      - "8889:8889/tcp"
+      - "8189:8189/udp"
       - "8890:8890/udp" #SRT
     expose:
       - "4822/tcp"
