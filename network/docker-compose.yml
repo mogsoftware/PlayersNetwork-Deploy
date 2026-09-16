@@ -1,0 +1,64 @@
+name: players-network
+
+services:
+  dnsmasq:
+    image: strm/dnsmasq:latest
+    container_name: dnsmasq
+    restart: unless-stopped
+    network_mode: host
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - ./dnsmasq.conf:/etc/dnsmasq.conf:ro
+      
+  zerotier:
+    container_name: service-zerotier
+    image: zerotier/zerotier:latest
+    restart: unless-stopped
+    volumes:
+      - Zerotier-data:/var/lib/zerotier-one
+    command: ["${ZT_NETWORK_ID}"] 
+    ports:
+      - "${ZT_IP:-127.0.0.1}:4822:4822" # Opens guacd's port to the zerotier network
+      - "${ZT_IP:-127.0.0.1}:8889:8889/tcp"
+      - "${ZT_IP:-127.0.0.1}:8189:8189/udp"
+      - "8890:8890/udp" #SRT
+    expose:
+      - "4822/tcp"
+      - "8890/udp"
+      - "8889/tcp"
+      - "8189/udp"
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    cap_add:
+      - NET_ADMIN
+      - SYS_ADMIN
+
+  guacd:
+    container_name: guacamole_driver
+    image: guacamole/guacd:latest
+    restart: unless-stopped
+    depends_on:
+      - zerotier
+    volumes:
+      - Guacd-driver:/drive
+      - Guacd-record:/record
+    environment:
+    network_mode: "service:zerotier"
+
+  mediamtx:
+    container_name: mediamtx
+    image: bluenviron/mediamtx:latest
+    restart: unless-stopped
+    command: ["/config/mediamtx.yml"] # Explicitly specifies the config file inside the container
+    depends_on:
+      - zerotier
+    volumes:
+      - Mediamtx_config:/config
+    network_mode: "service:zerotier"
+
+volumes:
+  Zerotier-data:
+  Guacd-driver:
+  Guacd-record:
+  Mediamtx_config:
