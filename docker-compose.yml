@@ -21,6 +21,7 @@ services:
     ports:
       - "4822:4822" # Opens guacd's port to the zerotier network
       - "8889:8889/tcp"
+      - "8888:8888/tcp"
       - "8189:8189/udp"
       - "8890:8890/udp" #SRT
     expose:

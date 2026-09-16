@@ -8,6 +8,13 @@ srt: yes
 srtAddress: :8890
 
 # --------------------------------------------------
+# HLS
+# --------------------------------------------------
+
+hls: yes
+hlsAddress: :8888
+
+# --------------------------------------------------
 # WebRTC
 # --------------------------------------------------
 
@@ -15,11 +22,6 @@ webrtc: yes
 webrtcAddress: :8889
 
 webrtcLocalUDPAddress: :8189
-
-# ICE
-webrtcIPsFromInterfaces: no
-webrtcAdditionalHosts:
-  - 172.20.20.47
 
 # --------------------------------------------------
 # Authentication
