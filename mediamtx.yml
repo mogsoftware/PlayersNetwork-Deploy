@@ -13,6 +13,11 @@ srtAddress: :8890
 
 hls: yes
 hlsAddress: :8888
+# Increase the segment duration slightly to give the browser a bigger buffer
+hlsSegmentDuration: 2s
+
+# Increase the number of segments held in the playlist 
+hlsSegmentCount: 5
 
 # --------------------------------------------------
 # WebRTC
