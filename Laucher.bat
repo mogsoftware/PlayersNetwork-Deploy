@@ -1,22 +1,23 @@
 @echo off
-set "status_file=C:\Scripts\Ps\kiosk_status.txt"
-set "kiosk_state=Inactive"
+setlocal enabledelayedexpansion
 
-:: Read the first line of the file and save it to the kiosk_state variable
-if exist "%status_file%" (
-    set /p kiosk_state=<"%status_file%"
+:: Target the exact numeric state code inside the Winlogon system registry
+set "REG_KEY=HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"
+set "KIOSK_STATE=0"
+
+for /f "tokens=3" %%a in ('reg query "%REG_KEY%" /v KioskMode 2^>nul') do (
+    set "KIOSK_STATE=%%a"
 )
 
-:: Trim any accidental whitespace
-set "kiosk_state=%kiosk_state: =%"
-
-if "%kiosk_state%"=="Active" (
-    :: KIOSK IS ACTIVE: Run your Tauri App natively as the main Windows shell
+:: Hexadecimal 0x1 matches digital integer 1 
+if "!KIOSK_STATE!"=="0x1" (
+    :: SYSTEM ACTIVE: Initialize custom application payload
     "C:\Users\MogPlayer\AppData\Local\Communique 7 Player\mogplayer.exe"
     
-    :: Fallback: If the Tauri app is closed, it drops into a CMD line instead of a black screen
+    :: Safe Terminal Fallback Console
     cmd.exe
 ) else (
-    :: KIOSK IS INACTIVE: Boot straight into standard Windows Explorer desktop layout
+    :: MAINTENANCE RECOVERY: Restore global shell parameters instantly 
+    reg add "%REG_KEY%" /v Shell /t REG_SZ /d "explorer.exe" /f >nul
     start explorer.exe
 )
