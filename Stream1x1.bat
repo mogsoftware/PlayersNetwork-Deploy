@@ -1,3 +1,6 @@
+mode con:cols=52 lines=10
+title Stream Manager
+
 @echo off
 echo ====================================================
 echo             Activating FFmpeg Stream
