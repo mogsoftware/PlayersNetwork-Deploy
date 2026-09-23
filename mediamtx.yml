@@ -15,6 +15,7 @@ hls: yes
 hlsAddress: :8888
 # Increase the segment duration slightly to give the browser a bigger buffer
 hlsSegmentDuration: 2s
+hlsPartDuration: 200ms
 
 # Increase the number of segments held in the playlist 
 hlsSegmentCount: 5
