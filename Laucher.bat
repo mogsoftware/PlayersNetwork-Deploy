@@ -1,2 +1,2 @@
 git pull
-ps\Laucher.bat
+.\ps\Laucher.bat
