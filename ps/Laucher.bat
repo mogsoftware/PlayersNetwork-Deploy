@@ -12,7 +12,7 @@ for /f "tokens=3" %%a in ('reg query "%REG_KEY%" /v KioskMode 2^>nul') do (
 :: Hexadecimal 0x1 matches digital integer 1 
 if "!KIOSK_STATE!"=="0x1" (
     :: SYSTEM ACTIVE: Initialize custom application payload
-    "C:\Users\MogPlayer\AppData\Local\Communique 7 Player\mogplayer.exe"
+    start "C:\Users\MogPlayer\AppData\Local\Communique 7 Player\mogplayer.exe"
     
     :: Safe Terminal Fallback Console
     cmd.exe
