@@ -1,2 +1,5 @@
+@echo off
+
 git pull
-.\ps\Laucher.bat
+call "%~dp0ps\Laucher.bat"
+exit /b %errorlevel%
