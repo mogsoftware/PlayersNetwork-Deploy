@@ -1,0 +1,15 @@
+@echo off
+
+mode con:cols=52 lines=15
+title Stream Manager
+
+echo ====================================================
+echo             Activating FFmpeg Stream
+echo ====================================================
+:loop
+echo Starting Stream for %COMPUTERNAME% in 1x1 format
+:: Place your exact FFmpeg command right below this line:
+ffmpeg -loglevel error -f gdigrab -framerate 24 -i desktop -c:v libx264 -preset ultrafast -profile:v main -pix_fmt yuv420p -an -g 96 -keyint_min 96 -sc_threshold 0 -b:v 2500k -maxrate 3500k -bufsize 7000k -f mpegts "srt://mds.mrocket.com.br:8890?streamid=publish:%COMPUTERNAME%:MogPlayer:PLAYER100"
+echo FFmpeg crashed or stopped! Restarting in 2 seconds...
+timeout /t 2
+goto loop
